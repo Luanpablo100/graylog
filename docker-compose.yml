@@ -16,7 +16,7 @@ volumes:
 services:
   # Graylog stores configuration in MongoDB
   mongo:
-    image: mongo:6.0.5-jammy
+    image: mongo:6.0.14
     container_name: mongodb
     volumes:
       - "mongo_data:/data/db"
@@ -26,7 +26,7 @@ services:
 
   # The logs themselves are stored in Opensearch
   opensearch:
-    image: opensearchproject/opensearch:2
+    image: opensearchproject/opensearch:2.12.0
     container_name: opensearch
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -92,7 +92,7 @@ services:
         condition: "service_started"
     ports:
       - 9000:9000/tcp   # Graylog web interface and REST API
-      - 1514:1514/tcp   # Syslog
-      - 1514:1514/udp   # Syslog
+      - 514:1514/tcp   # Syslog
+      - 514:1514/udp   # Syslog
       - 12201:12201/tcp # GELF
       - 12201:12201/udp # GELF
